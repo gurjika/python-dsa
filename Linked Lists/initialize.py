@@ -140,19 +140,54 @@ class LinkedList:
         self.length += 1
         return True
     
+    def remove(self, index):
+        if index < 0 or index >= self.length:
+            return None
 
+        if index == 0:
+            popped = self.pop_first()            
+            return popped
+        
+        if index == self.length - 1:
+            popped = self.pop()
+            return popped
+        
+        previous_node = self.get(index - 1)
+        next_node = previous_node.next
+        previous_node.next = next_node.next
+        next_node.next = None
+        self.length -= 1
+        return next_node
 
-linked_list = LinkedList(4)
+    def reverse(self):
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
+
+        previous = None
+        current = temp
+        next = temp.next
+
+        while current is not None:
+            current.next = previous
+            previous = current
+            current = next
+            if next:
+                next = next.next
+
+        
+
+linked_list = LinkedList(1)
 linked_list.append(2)
-linked_list.insert(2, 5)
-
+linked_list.append(3)
+linked_list.append(4)
 # linked_list.pop_first()
 linked_list.print_list()
 print()
-
-print()
+linked_list.reverse()
 linked_list.print_list()
-print()
+
+
 
 print(f'tail: {linked_list.tail.value}')
 print(f'head: {linked_list.head.value}')
