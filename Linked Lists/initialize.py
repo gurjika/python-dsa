@@ -175,20 +175,46 @@ class LinkedList:
             if next:
                 next = next.next
 
-        
+        return True
+    
+    def middle_node(self):
+        slow_pointer = self.head
+        fast_pointer = self.head
+
+
+        while fast_pointer != self.tail and fast_pointer is not None:
+
+            
+            slow_pointer = slow_pointer.next
+            fast_pointer = fast_pointer.next.next
+
+        return slow_pointer 
+
 
 linked_list = LinkedList(1)
 linked_list.append(2)
 linked_list.append(3)
 linked_list.append(4)
+linked_list.append(5)
+linked_list.append(6)
+linked_list.append(7)
+linked_list.append(8)
+linked_list.append(9)
+linked_list.append(10)
+linked_list.append(11)
+
+linked_list.print_list()
+
+
+print(linked_list.middle_node().value)
 # linked_list.pop_first()
-linked_list.print_list()
-print()
-linked_list.reverse()
-linked_list.print_list()
+# linked_list.print_list()
+# print()
+# linked_list.reverse()
+# linked_list.print_list()
 
 
 
 print(f'tail: {linked_list.tail.value}')
 print(f'head: {linked_list.head.value}')
-print(linked_list.get(0))
+# print(linked_list.get(0))
