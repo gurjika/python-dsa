@@ -189,6 +189,42 @@ class LinkedList:
             fast_pointer = fast_pointer.next.next
 
         return slow_pointer 
+    
+    def has_loop(self):
+        fast_pointer = self.head
+        slow_pointer = self.head
+
+        while fast_pointer != self.tail and fast_pointer is not None:
+            fast_pointer = fast_pointer.next.next
+            slow_pointer = slow_pointer.next
+
+            if slow_pointer == fast_pointer:
+                return True
+            
+        return False
+    
+    
+
+def find_kth_from_end(linked_list: LinkedList, k):
+
+
+    if k < 0:
+        return None
+    
+    fast_pointer = linked_list.head
+    slow_pointer = linked_list.head
+
+
+    for _ in range(1, k):
+        if fast_pointer is None:
+            return None
+        fast_pointer = fast_pointer.next
+    
+    while fast_pointer != linked_list.tail:
+        fast_pointer = fast_pointer.next
+        slow_pointer = slow_pointer.next
+
+    return slow_pointer
 
 
 linked_list = LinkedList(1)
@@ -205,8 +241,10 @@ linked_list.append(11)
 
 linked_list.print_list()
 
+print(find_kth_from_end(linked_list, 10).value)
 
-print(linked_list.middle_node().value)
+
+# print(linked_list.middle_node().value)
 # linked_list.pop_first()
 # linked_list.print_list()
 # print()
