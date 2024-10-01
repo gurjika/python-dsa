@@ -203,7 +203,56 @@ class LinkedList:
             
         return False
     
-    
+    def partition_list(self, x):
+
+        if self.length == 0:
+            return False
+
+        current = self.head.next
+        to_find_node_for_less = self.head
+        to_find_node_for_more = self.head
+        prev_head = self.head
+        new_head = None
+
+        first_more = None
+
+        while current != None:
+            if current.value >= x:
+                temp = current
+                current = current.next
+                to_find_node_for_more.next = temp
+                to_find_node_for_more = temp
+
+                if not first_more:
+                    first_more = to_find_node_for_more
+
+
+
+            elif current.value < x:
+                
+                temp = current
+                current = current.next
+                to_find_node_for_less.next = temp
+                to_find_node_for_less = temp
+
+                if not new_head:
+                    new_head = temp
+
+
+        if prev_head.value < x:
+            self.head = prev_head
+
+        else:
+            to_find_node_for_less.next = prev_head
+            prev_head.next = first_more
+            self.head = new_head
+
+      
+        to_find_node_for_more.next = None
+        self.tail = to_find_node_for_more
+
+        return True
+        
 
 def find_kth_from_end(linked_list: LinkedList, k):
 
@@ -226,27 +275,26 @@ def find_kth_from_end(linked_list: LinkedList, k):
 
     return slow_pointer
 
-
-linked_list = LinkedList(1)
+linked_list = LinkedList(3)
 linked_list.append(2)
-linked_list.append(3)
-linked_list.append(4)
-linked_list.append(5)
-linked_list.append(6)
-linked_list.append(7)
-linked_list.append(8)
-linked_list.append(9)
-linked_list.append(10)
-linked_list.append(11)
+linked_list.append(1)
 
-linked_list.print_list()
+# linked_list.append(10)
+# linked_list.append(7)
+# linked_list.append(8)
+# linked_list.append(9)
+# linked_list.append(10)
+# linked_list.append(11)
 
-print(find_kth_from_end(linked_list, 10).value)
+
+print()
+print()
+
+
 
 
 # print(linked_list.middle_node().value)
 # linked_list.pop_first()
-# linked_list.print_list()
 # print()
 # linked_list.reverse()
 # linked_list.print_list()
@@ -256,3 +304,80 @@ print(find_kth_from_end(linked_list, 10).value)
 print(f'tail: {linked_list.tail.value}')
 print(f'head: {linked_list.head.value}')
 # print(linked_list.get(0))
+
+
+def linkedlist_to_list(head):
+    result = []
+    current = head
+    while current:
+        result.append(current.value)
+        current = current.next
+    return result
+
+# Function to test partition_list
+def test_partition_list():
+    test_cases_passed = 0
+
+    # Test 5: Reverse Sorted
+    print("Test 5: Reverse Sorted")
+    x = 2
+    print(f"x = {x}")
+    
+    ll = LinkedList(3)
+    ll.append(2)
+    ll.append(1)
+
+    print("Before:", linkedlist_to_list(ll.head))
+
+    ll.partition_list(x)
+
+    print("After:", linkedlist_to_list(ll.head))
+    if linkedlist_to_list(ll.head) == [1, 3, 2]:
+        print("PASS")
+        test_cases_passed += 1
+    else:
+        print("FAIL")
+        
+    print("-----------------------")
+    
+    # Test 6: All Smaller Values
+    print("Test 6: All Smaller Values")
+    x = 2
+    print(f"x = {x}")
+    ll = LinkedList(1)
+    ll.append(1)
+    ll.append(1)
+    print("Before:", linkedlist_to_list(ll.head))
+    ll.partition_list(x)
+    print("After:", linkedlist_to_list(ll.head))
+    if linkedlist_to_list(ll.head) == [1, 1, 1]:
+        print("PASS")
+        test_cases_passed += 1
+    else:
+        print("FAIL")
+        
+    print("-----------------------")
+    
+    # Test 7: Single Element, Equal to Partition
+    print("Test 7: Single Element, Equal to Partition")
+    x = 3
+    print(f"x = {x}")
+    ll = LinkedList(3)
+    print("Before:", linkedlist_to_list(ll.head))
+    ll.partition_list(x)
+    print("After:", linkedlist_to_list(ll.head))
+    if linkedlist_to_list(ll.head) == [3]:
+        print("PASS")
+        test_cases_passed += 1
+    else:
+        print("FAIL")
+        
+    print("-----------------------")
+    
+    # Summary
+    print(f"{test_cases_passed} out of 7 tests passed.")
+
+
+# Run the test function
+test_partition_list()
+      
