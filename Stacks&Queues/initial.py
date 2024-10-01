@@ -80,7 +80,7 @@ class Queue:
             self.first = temp.next
             temp.next = None
         
-        self.length
+        self.length -= 1
         return temp.value
 
     def print_queue(self):
