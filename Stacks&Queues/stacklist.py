@@ -13,9 +13,18 @@ class Stack:
         temp = self.stack.pop()
         return temp
     
+    def is_empty(self):
+        return len(self.stack) == 0
+    
     def print_stack(self):
         for item in self.stack:
             print(item)
+
+    def peek(self):
+        if self.is_empty():
+            return None
+        else:
+            return self.stack[-1]
     
 stack = Stack()
 
@@ -126,3 +135,37 @@ def test_is_balanced_parentheses():
         print('Test case 11 failed')
 
 test_is_balanced_parentheses()
+
+
+def sort_stack(stack):
+    sorted_stack = Stack()
+
+
+    while not stack.is_empty():
+        temp = stack.pop()
+        
+        while sorted_stack.peek() is not None and sorted_stack.peek() > temp:
+            element = sorted_stack.pop()
+            stack.push(element)
+
+        sorted_stack.push(temp)
+
+
+    while not sorted_stack.is_empty():
+        stack.push(sorted_stack.pop())
+
+    return stack
+
+stack = Stack()
+
+stack.push(1)
+stack.push(5)
+stack.push(2)
+stack.push(2)
+stack.push(27)
+stack.push(4)
+stack.push(2)
+sorted_stack = sort_stack(stack)
+stack.print_stack()
+
+sorted_stack.print_stack()
