@@ -4,6 +4,8 @@ def group_anagrams(strings):
     group_list = []
 
     for string in strings:
+
+        # ALSO WORKS
         # char_sum = 0
         # # for char in string:
         # #     char_sum += ord(char)
