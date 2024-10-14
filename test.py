@@ -32,6 +32,7 @@ class LinkedList:
         self.length = 0
         
     def partition_list(self, x):
+        pass
 
         # current = self.head
         # to_find_node_for_less = None
